@@ -17,9 +17,9 @@
       <div class="flex flex-col items-center mb-10">
         <div class="flex items-center gap-2 mb-2">
           <span class="material-symbols-outlined text-primary text-3xl">security</span>
-          <h1 class="font-headline font-black text-3xl tracking-tighter text-primary">RANKARENA</h1>
+          <h1 class="font-headline font-black text-3xl tracking-tighter text-primary">TRYHARD</h1>
         </div>
-        <p class="text-[10px] tracking-[0.2em] font-bold text-slate-500 uppercase">AUTHENTICATION_REQUIRED</p>
+        <p class="text-[10px] tracking-[0.2em] font-bold text-slate-500 uppercase">Desafie seus limites</p>
       </div>
 
       <!-- Form -->
@@ -33,13 +33,13 @@
 
         <!-- Email -->
         <div class="space-y-2">
-          <label class="text-[9px] tracking-[0.2em] font-bold text-primary uppercase ml-1">OPERATIVE_ID</label>
+          <label class="text-[9px] tracking-[0.2em] font-bold text-primary uppercase ml-1">EMAIL OU USUÁRIO</label>
           <div class="relative group">
             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors text-lg">alternate_email</span>
             <input
               type="email"
               name="email"
-              placeholder="EMAIL OR USERNAME"
+              placeholder="E-mail ou Usuário"
               [(ngModel)]="email"
               required
               class="w-full bg-surface-container-lowest border-[0.5px] border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary/20 text-on-surface text-sm pl-12 pr-4 py-4 rounded-lg transition-all outline-none placeholder:text-slate-600"
@@ -50,8 +50,8 @@
         <!-- Password -->
         <div class="space-y-2">
           <div class="flex justify-between items-center px-1">
-            <label class="text-[9px] tracking-[0.2em] font-bold text-primary uppercase">ACCESS_KEY</label>
-            <a href="#" class="text-[9px] tracking-[0.1em] font-bold text-slate-500 hover:text-primary transition-colors uppercase">FORGOT_KEY?</a>
+            <label class="text-[9px] tracking-[0.2em] font-bold text-primary uppercase">Senha</label>
+            <a href="#" class="text-[9px] tracking-[0.1em] font-bold text-slate-500 hover:text-primary transition-colors uppercase">Esqueci minha senha?</a>
           </div>
           <div class="relative group">
             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors text-lg">lock</span>
@@ -73,7 +73,7 @@
             <div class="w-4 h-4 border border-outline-variant rounded bg-surface-container-lowest peer-checked:bg-primary peer-checked:border-primary transition-all"></div>
             <span class="material-symbols-outlined absolute text-[12px] text-on-primary opacity-0 peer-checked:opacity-100 left-[2px]" style="font-variation-settings: 'FILL' 1">check</span>
           </label>
-          <span class="text-[10px] tracking-widest font-medium text-slate-400 uppercase">REMEMBER_OPERATIVE</span>
+          <span class="text-[10px] tracking-widest font-medium text-slate-400 uppercase">Lembrar-me</span>
         </div>
 
         <!-- Submit -->
@@ -82,16 +82,16 @@
           [disabled]="loading()"
           class="w-full group relative overflow-hidden bg-primary text-on-primary font-black py-5 rounded-lg text-[11px] tracking-[0.25em] transition-all hover:scale-[1.02] active:scale-95 neon-glow-btn uppercase disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          {{ loading() ? 'AUTHENTICATING...' : 'SIGN IN' }}
+          {{ loading() ? 'ENTRANDO...' : 'LOGIN' }}
           <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
         </button>
       </form>
 
       <!-- Register link -->
       <div class="mt-12 pt-8 border-t-[0.5px] border-outline-variant text-center">
-        <p class="text-xs text-slate-500 font-light mb-2">NEW TO THE ARENA?</p>
+        <p class="text-xs text-slate-500 font-light mb-2">Novo por aqui?</p>
         <a routerLink="/auth/register" class="inline-flex items-center gap-2 group">
-          <span class="text-[10px] tracking-[0.2em] font-bold text-primary uppercase transition-all group-hover:tracking-[0.3em]">CREATE_TACTICAL_PROFILE</span>
+          <span class="text-[10px] tracking-[0.2em] font-bold text-primary uppercase transition-all group-hover:tracking-[0.3em]">CRIAR PERFIL</span>
           <span class="material-symbols-outlined text-primary text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
         </a>
       </div>
@@ -100,20 +100,31 @@
     <!-- Status bar -->
     <div class="mt-8 flex justify-center gap-8">
       <div class="flex flex-col items-center">
-        <span class="text-[9px] tracking-widest text-slate-600 font-bold uppercase">SYSTEM_STATUS</span>
+        <span class="text-[9px] tracking-widest text-slate-600 font-bold uppercase">Status do Sistema</span>
         <div class="flex items-center gap-1.5 mt-1">
           <div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-          <span class="text-[9px] font-bold text-primary">OPERATIONAL</span>
+          <span class="text-[9px] font-bold text-primary">Operacional</span>
         </div>
       </div>
       <div class="flex flex-col items-center">
-        <span class="text-[9px] tracking-widest text-slate-600 font-bold uppercase">SECURE_CHANNEL</span>
+        <span class="text-[9px] tracking-widest text-slate-600 font-bold uppercase">Canal Seguro</span>
         <div class="flex items-center gap-1.5 mt-1">
           <span class="material-symbols-outlined text-[10px] text-slate-400">encrypted</span>
           <span class="text-[9px] font-bold text-slate-400">AES_256</span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Support -->
+<div class="fixed bottom-6 left-6 flex items-center gap-4">
+  <div class="w-12 h-12 bg-surface-container-high rounded-xl border-[0.5px] border-outline-variant flex items-center justify-center">
+    <span class="material-symbols-outlined text-slate-400">help</span>
+  </div>
+  <div>
+    <p class="text-[10px] font-bold tracking-widest text-slate-500 uppercase">SUPORTE</p>
+    <p class="text-[9px] text-slate-600">ID: 449-AUTH</p>
   </div>
 </div>
 
