@@ -1,19 +1,4 @@
-/* placeholder — será estilizado conforme protótipo */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 360px;
-  margin: 100px auto;
-  padding: 24px;
-
-  input, button {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .error {
-    color: tomato;
-    font-size: 13px;
-  }
+/* Estilos específicos do login — a maioria é handled pelo Tailwind */
+:host {
+  display: contents;
 }
