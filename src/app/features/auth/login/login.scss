@@ -6,29 +6,20 @@
   overflow: hidden;
 }
 
-/* Animação letter-by-letter no título */
-.tryhard-title span {
+.tryhard-title {
   display: inline-block;
   border-radius: 3px;
-  animation: letter-select 0.2s ease forwards;
-
-  &:nth-child(1) { animation-delay: 0.20s; }
-  &:nth-child(2) { animation-delay: 0.32s; }
-  &:nth-child(3) { animation-delay: 0.44s; }
-  &:nth-child(4) { animation-delay: 0.56s; }
-  &:nth-child(5) { animation-delay: 0.68s; }
-  &:nth-child(6) { animation-delay: 0.80s; }
-  &:nth-child(7) { animation-delay: 0.92s; }
+  padding: 0 4px;
+  animation: title-pulse 3.5s ease-in-out infinite;
 }
 
-@keyframes letter-select {
-  from {
+@keyframes title-pulse {
+  0%, 100% {
     background-color: transparent;
     color: #4edea3;
   }
-  to {
+  50% {
     background-color: #4edea3;
     color: #003824;
-    padding: 0 1px;
   }
 }
