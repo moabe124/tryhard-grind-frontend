@@ -9,10 +9,17 @@ export const routes: Routes = [
       import('./features/auth/auth.routes').then((m) => m.authRoutes),
   },
   {
-    path: 'groups',
+    path: '',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/groups/groups.routes').then((m) => m.groupsRoutes),
+    loadComponent: () =>
+      import('./layouts/app-layout/app-layout').then((m) => m.AppLayoutComponent),
+    children: [
+      {
+        path: 'groups',
+        loadChildren: () =>
+          import('./features/groups/groups.routes').then((m) => m.groupsRoutes),
+      },
+    ],
   },
   { path: '**', redirectTo: 'auth/login' },
 ];

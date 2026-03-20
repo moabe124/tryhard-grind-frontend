@@ -21,6 +21,15 @@ export class AuthService {
 
   currentUser = signal<UserDto | null>(null);
 
+  constructor() {
+    if (this.isLoggedIn()) {
+      this.http.get<UserDto>(`${this.baseUrl}/me`).subscribe({
+        next: (user) => this.currentUser.set(user),
+        error: () => this.storage.clearTokens(),
+      });
+    }
+  }
+
   isLoggedIn(): boolean {
     return !!this.storage.getAccessToken();
   }
