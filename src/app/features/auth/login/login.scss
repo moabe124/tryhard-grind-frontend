@@ -1,4 +1,7 @@
-/* Estilos específicos do login — a maioria é handled pelo Tailwind */
 :host {
-  display: contents;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
 }
