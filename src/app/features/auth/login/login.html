@@ -1,0 +1,29 @@
+<form (ngSubmit)="submit()">
+  <h1>Login</h1>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <input
+    type="email"
+    placeholder="Email"
+    [(ngModel)]="email"
+    name="email"
+    required
+  />
+
+  <input
+    type="password"
+    placeholder="Senha"
+    [(ngModel)]="password"
+    name="password"
+    required
+  />
+
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Entrando...' : 'Entrar' }}
+  </button>
+
+  <a routerLink="/auth/register">Criar conta</a>
+</form>
