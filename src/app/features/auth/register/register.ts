@@ -16,10 +16,25 @@ export class RegisterComponent {
   nick = '';
   email = '';
   password = '';
+  confirmPassword = '';
+  acceptTerms = false;
   loading = signal(false);
   error = signal('');
 
+  get passwordMismatch(): boolean {
+    return this.confirmPassword.length > 0 && this.password !== this.confirmPassword;
+  }
+
   submit() {
+    if (this.password !== this.confirmPassword) {
+      this.error.set('As senhas não coincidem.');
+      return;
+    }
+    if (!this.acceptTerms) {
+      this.error.set('Aceite os termos de serviço para continuar.');
+      return;
+    }
+
     this.loading.set(true);
     this.error.set('');
 

@@ -1,19 +1,8 @@
-/* placeholder — será estilizado conforme protótipo */
-form {
+:host {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 360px;
-  margin: 100px auto;
-  padding: 24px;
-
-  input, button {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .error {
-    color: tomato;
-    font-size: 13px;
-  }
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 2rem 0;
 }
