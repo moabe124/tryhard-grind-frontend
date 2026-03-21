@@ -1,0 +1,79 @@
+<!-- Overlay -->
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/70 backdrop-blur-md"
+  (click)="close()"
+>
+  <div
+    class="w-full max-w-md bg-[#08120f] border border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.6)] rounded-lg overflow-hidden flex flex-col"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-primary/10 flex justify-between items-center bg-surface">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">link</span>
+        <h2 class="text-base font-black tracking-tight text-primary uppercase">Entrar por Link de Convite</h2>
+      </div>
+      <button (click)="close()" class="text-outline hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 space-y-6">
+
+      <p class="text-[11px] text-outline uppercase tracking-[0.15em]">
+        Cole o link de convite ou o token recebido para entrar no grupo.
+      </p>
+
+      @if (error()) {
+        <p class="text-[11px] tracking-widest text-error bg-error-container/20 px-4 py-3 rounded-lg">
+          {{ error() }}
+        </p>
+      }
+
+      <!-- Input + botão colar -->
+      <div class="space-y-2">
+        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-outline">Link ou Token</label>
+        <div class="flex gap-2">
+          <input
+            type="text"
+            [(ngModel)]="link"
+            (ngModelChange)="error.set('')"
+            placeholder="http://localhost:4200/join/..."
+            class="flex-1 min-w-0 bg-surface-container-lowest border border-outline-variant focus:border-primary/50 focus:ring-1 focus:ring-primary/50 rounded-lg py-3 px-4 text-sm outline-none transition-all text-on-surface placeholder:text-outline font-mono"
+          />
+          <button
+            (click)="paste()"
+            class="shrink-0 flex items-center gap-2 px-4 py-3 rounded-lg border border-outline-variant text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all"
+          >
+            <span class="material-symbols-outlined text-sm">content_paste</span>
+            Colar
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-8 py-5 bg-surface border-t border-primary/10 flex flex-col md:flex-row gap-3 justify-end">
+      <button
+        (click)="close()"
+        class="px-8 py-3 rounded-lg border border-outline-variant text-[10px] uppercase tracking-[0.2em] font-bold text-outline hover:bg-white/5 hover:text-on-surface transition-all"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="submit()"
+        [disabled]="!isValid || loading()"
+        class="px-8 py-3 rounded-lg text-[10px] uppercase tracking-[0.2em] font-bold transition-all neon-glow-btn"
+        [class]="isValid && !loading()
+          ? 'bg-primary text-on-primary hover:brightness-110 active:scale-[0.98]'
+          : 'bg-primary/20 border border-primary/30 text-primary/50 cursor-not-allowed'"
+      >
+        {{ loading() ? 'ENTRANDO...' : 'ENTRAR NO GRUPO' }}
+      </button>
+    </div>
+
+  </div>
+</div>
