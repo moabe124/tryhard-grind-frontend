@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -14,6 +14,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./layouts/app-layout/app-layout').then((m) => m.AppLayoutComponent),
     children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./features/home/home.routes').then((m) => m.homeRoutes),
+      },
       {
         path: 'groups',
         loadChildren: () =>

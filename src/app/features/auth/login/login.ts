@@ -24,7 +24,7 @@ export class LoginComponent {
     this.error.set('');
 
     this.auth.login({ email: this.email, password: this.password }).subscribe({
-      next: () => this.router.navigate(['/groups']),
+      next: () => this.router.navigate(['/home']),
       error: (err) => {
         this.error.set(err.error?.title ?? 'Credenciais inválidas.');
         this.loading.set(false);
