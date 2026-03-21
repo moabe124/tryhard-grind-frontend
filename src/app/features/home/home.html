@@ -3,14 +3,7 @@
     <span class="material-symbols-outlined text-primary text-4xl animate-spin">progress_activity</span>
   </div>
 } @else if (groups().length > 0) {
-  <app-home-with [groups]="groups()" (openModal)="showModal.set(true)" />
+  <app-home-with [groups]="groups()" (openModal)="modalService.open()" />
 } @else {
-  <app-home-empty (openModal)="showModal.set(true)" />
-}
-
-@if (showModal()) {
-  <app-create-group-modal
-    (created)="onGroupCreated($event)"
-    (closed)="showModal.set(false)"
-  />
+  <app-home-empty (openModal)="modalService.open()" />
 }
