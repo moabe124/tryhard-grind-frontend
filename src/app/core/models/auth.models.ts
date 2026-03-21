@@ -19,6 +19,7 @@ export interface UserDto {
   id: string;
   nick: string;
   email: string;
+  avatarUrl: string;
 }
 
 export interface RefreshRequest {

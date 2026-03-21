@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, SidebarComponent],
   template: `
     <app-header />
-    <div class="pt-16 min-h-screen">
+    <app-sidebar />
+    <main class="md:ml-64 pt-16 min-h-screen">
       <router-outlet />
-    </div>
+    </main>
   `,
 })
 export class AppLayoutComponent {}

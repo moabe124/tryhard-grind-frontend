@@ -1,0 +1,86 @@
+<aside class="bg-surface-container-lowest/90 backdrop-blur-2xl border-r border-primary/5 fixed left-0 top-0 h-screen w-64 z-40 hidden md:flex flex-col pt-16">
+
+  <!-- User badge -->
+  <div class="px-4 py-5 border-b border-primary/5">
+    <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container">
+      <div class="h-10 w-10 rounded-lg border border-primary/30 flex items-center justify-center text-primary shrink-0">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+      </div>
+      <div class="min-w-0">
+        <p class="text-[10px] uppercase tracking-[0.2em] font-black text-primary truncate">
+          {{ auth.currentUser()?.nick ?? '—' }}
+        </p>
+        <p class="text-[10px] text-outline mt-0.5">Membro</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="flex-1 py-2">
+
+    <a
+      routerLink="/groups"
+      routerLinkActive="text-primary bg-primary/10 border-r-2 border-primary"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-4 px-6 py-4 text-outline hover:bg-primary/5 hover:text-primary hover:translate-x-0.5 transition-all duration-200"
+    >
+      <span class="material-symbols-outlined text-[20px]">home</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.2em] font-bold">Home</span>
+    </a>
+
+    <a
+      routerLink="/groups/list"
+      routerLinkActive="text-primary bg-primary/10 border-r-2 border-primary"
+      class="flex items-center gap-4 px-6 py-4 text-outline hover:bg-primary/5 hover:text-primary hover:translate-x-0.5 transition-all duration-200"
+    >
+      <span class="material-symbols-outlined text-[20px]">group</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.2em] font-bold">Groups</span>
+    </a>
+
+    <a
+      routerLink="/matches"
+      routerLinkActive="text-primary bg-primary/10 border-r-2 border-primary"
+      class="flex items-center gap-4 px-6 py-4 text-outline hover:bg-primary/5 hover:text-primary hover:translate-x-0.5 transition-all duration-200"
+    >
+      <span class="material-symbols-outlined text-[20px]">emoji_events</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.2em] font-bold">Matches</span>
+    </a>
+
+    <a
+      routerLink="/profile"
+      routerLinkActive="text-primary bg-primary/10 border-r-2 border-primary"
+      class="flex items-center gap-4 px-6 py-4 text-outline hover:bg-primary/5 hover:text-primary hover:translate-x-0.5 transition-all duration-200"
+    >
+      <span class="material-symbols-outlined text-[20px]">person</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.2em] font-bold">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- CTA -->
+  <div class="px-4 pb-4">
+    <button class="w-full py-3 bg-primary text-on-primary font-label text-[10px] font-bold tracking-[0.2em] uppercase rounded-lg hover:brightness-110 active:scale-[0.98] transition-all neon-glow-btn">
+      CRIAR SQUAD
+    </button>
+  </div>
+
+  <!-- Bottom -->
+  <div class="border-t border-primary/5">
+    <a
+      routerLink="/support"
+      class="flex items-center gap-4 px-6 py-4 text-outline hover:text-primary transition-colors"
+    >
+      <span class="material-symbols-outlined text-[20px]">help</span>
+      <span class="text-[10px] uppercase tracking-[0.2em]">Support</span>
+    </a>
+
+    <button
+      (click)="logout()"
+      class="w-full flex items-center gap-4 px-6 py-4 text-outline hover:text-error transition-colors"
+    >
+      <span class="material-symbols-outlined text-[20px]">logout</span>
+      <span class="text-[10px] uppercase tracking-[0.2em]">Logout</span>
+    </button>
+  </div>
+
+</aside>
