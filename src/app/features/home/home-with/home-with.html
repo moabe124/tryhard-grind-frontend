@@ -15,7 +15,10 @@
 
   <div class="flex flex-col gap-6">
     @for (group of groups(); track group.id) {
-      <article class="bg-surface-container/40 backdrop-blur-xl border border-outline-variant rounded-xl p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <article
+        (click)="goToGroup(group.id)"
+        class="bg-surface-container/40 backdrop-blur-xl border border-outline-variant rounded-xl p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center cursor-pointer group/card transition-all duration-300 hover:border-primary/40 hover:bg-surface-container/60 hover:shadow-[0_0_30px_rgba(78,222,163,0.08)] hover:-translate-y-0.5"
+      >
 
         <!-- Nome + jogo + membros -->
         <div class="lg:col-span-3">
@@ -68,11 +71,11 @@
           </div>
         </div>
 
-        <!-- CTA -->
+        <!-- Seta hover -->
         <div class="lg:col-span-2 flex justify-end">
-          <button class="px-6 py-3 border border-primary/20 text-primary font-bold text-[10px] tracking-[0.2em] uppercase rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
-            VER RANKING
-          </button>
+          <span class="material-symbols-outlined text-primary/30 text-3xl transition-all duration-300 group-hover/card:text-primary group-hover/card:translate-x-1">
+            arrow_forward
+          </span>
         </div>
 
       </article>
