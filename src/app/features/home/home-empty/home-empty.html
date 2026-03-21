@@ -1,4 +1,55 @@
-<!-- Estado vazio — implementar quando protótipo for fornecido -->
-<section class="px-8 py-10">
-  <p class="text-outline">Nenhum grupo ainda.</p>
-</section>
+<div class="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] relative">
+
+  <!-- Ambient glows -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-2xl w-full px-8 text-center flex flex-col items-center">
+
+    <!-- Ilustração -->
+    <div class="relative mb-12">
+      <div class="w-48 h-48 rounded-full bg-surface-container-high border border-primary/20 flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+        <span class="material-symbols-outlined text-[80px] text-primary/40 select-none" style="font-variation-settings: 'FILL' 0, 'wght' 200;">
+          leaderboard
+        </span>
+        <div class="absolute inset-0 border-t-2 border-primary/40 rounded-full animate-pulse"></div>
+      </div>
+      <div class="mt-4 h-1 w-32 bg-primary/10 blur-md mx-auto rounded-full"></div>
+    </div>
+
+    <!-- Texto -->
+    <div class="space-y-4 mb-10">
+      <h1 class="text-5xl md:text-6xl font-black tracking-tight text-on-surface">
+        Nenhuma competição ainda
+      </h1>
+      <p class="text-outline font-light text-lg max-w-md mx-auto leading-relaxed">
+        Crie um grupo com seus amigos ou entre em um pelo link de convite para começar a competir.
+      </p>
+    </div>
+
+    <!-- Ações -->
+    <div class="flex flex-col gap-4 w-full max-w-xs">
+      <button class="bg-primary text-on-primary font-bold py-4 px-8 rounded-lg text-[10px] tracking-[0.2em] uppercase hover:brightness-110 active:scale-[0.98] transition-all neon-glow-btn flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+        Criar grupo
+      </button>
+      <button class="border border-outline-variant hover:border-primary/50 text-on-surface-variant font-medium py-4 px-8 rounded-lg text-[10px] tracking-[0.2em] uppercase transition-all bg-surface-container/30 flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-sm">link</span>
+        Entrar com link de convite
+      </button>
+    </div>
+
+    <!-- Sync status -->
+    <div class="mt-20 pt-8 border-t border-outline-variant w-full flex flex-col items-center gap-2 opacity-50">
+      <p class="text-[9px] tracking-[0.2em] uppercase text-outline">SYNC STATUS</p>
+      <div class="flex items-center gap-3">
+        <span class="text-[10px] font-mono text-primary animate-pulse">CONNECTED</span>
+        <button class="hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-sm">refresh</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
