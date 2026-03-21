@@ -1,0 +1,74 @@
+<!-- Overlay -->
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/70 backdrop-blur-md"
+  (click)="close()"
+>
+  <div
+    class="w-full max-w-md bg-[#08120f] border border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.6)] rounded-lg overflow-hidden flex flex-col"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-primary/10 flex justify-between items-center bg-surface">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">link</span>
+        <h2 class="text-base font-black tracking-tight text-primary uppercase">Link de Convite</h2>
+      </div>
+      <button (click)="close()" class="text-outline hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 space-y-6">
+
+      <p class="text-[11px] text-outline uppercase tracking-[0.15em]">
+        Compartilhe o link abaixo para convidar alguém para o grupo. O link anterior foi invalidado automaticamente.
+      </p>
+
+      <!-- Link box + botão copiar -->
+      <div class="flex items-center gap-3">
+        <div
+          class="flex-1 min-w-0 bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 cursor-text select-all"
+          (click)="copy()"
+          title="Clique para copiar"
+        >
+          <p class="text-xs text-on-surface font-mono truncate">{{ invite().inviteUrl }}</p>
+        </div>
+        <button
+          (click)="copy()"
+          class="shrink-0 flex items-center gap-2 px-4 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all duration-200"
+          [class]="copied()
+            ? 'bg-primary/15 text-primary border border-primary/30'
+            : 'bg-primary text-on-primary hover:brightness-110 active:scale-[0.98] neon-glow-btn'"
+        >
+          <span
+            class="material-symbols-outlined text-sm transition-all duration-200"
+            style="font-variation-settings: 'FILL' 1;"
+          >{{ copied() ? 'check_circle' : 'content_copy' }}</span>
+          {{ copied() ? 'Copiado!' : 'Copiar' }}
+        </button>
+      </div>
+
+      <!-- Feedback de confirmação -->
+      @if (copied()) {
+        <div class="flex items-center gap-2 px-4 py-3 bg-primary/10 border border-primary/20 rounded-lg">
+          <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          <p class="text-[11px] text-primary font-bold uppercase tracking-[0.15em]">Link copiado para a área de transferência!</p>
+        </div>
+      }
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-8 py-5 bg-surface border-t border-primary/10 flex justify-end">
+      <button
+        (click)="close()"
+        class="px-8 py-3 rounded-lg border border-outline-variant text-[10px] uppercase tracking-[0.2em] font-bold text-outline hover:bg-white/5 hover:text-on-surface transition-all"
+      >
+        Fechar
+      </button>
+    </div>
+
+  </div>
+</div>

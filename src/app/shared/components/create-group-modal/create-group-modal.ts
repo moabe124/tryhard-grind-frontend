@@ -1,6 +1,7 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GroupService } from '../../../core/services/group.service';
+import { GroupModalService } from '../../../core/services/group-modal.service';
 import { GroupResponse } from '../../../core/models/group.models';
 
 const GAMES = [
@@ -16,8 +17,9 @@ const GAMES = [
   imports: [FormsModule],
   templateUrl: './create-group-modal.html',
 })
-export class CreateGroupModalComponent {
+export class CreateGroupModalComponent implements OnInit {
   private groupService = inject(GroupService);
+  private modalService = inject(GroupModalService);
 
   created = output<GroupResponse>();
   closed = output<void>();
@@ -32,6 +34,20 @@ export class CreateGroupModalComponent {
 
   loading = signal(false);
   error = signal('');
+
+  get editGroup() { return this.modalService.editGroup(); }
+  get isEditing() { return this.editGroup !== null; }
+
+  ngOnInit() {
+    const g = this.editGroup;
+    if (g) {
+      this.name = g.name;
+      this.game = g.game;
+      this.baseWin = g.scoringConfig.baseWin;
+      this.baseLoss = g.scoringConfig.baseLoss;
+      this.kdaWeight = g.scoringConfig.kdaWeight;
+    }
+  }
 
   get isValid() {
     return this.name.trim().length >= 3;
@@ -51,23 +67,23 @@ export class CreateGroupModalComponent {
     this.loading.set(true);
     this.error.set('');
 
-    this.groupService.create({
-      name: this.name.trim(),
-      game: this.game,
-      scoringConfig: {
-        baseWin: this.baseWin,
-        baseLoss: this.baseLoss,
-        kdaWeight: this.kdaWeight,
-      },
-    }).subscribe({
-      next: (group) => {
-        this.loading.set(false);
-        this.created.emit(group);
-      },
-      error: (err) => {
-        this.error.set(err.error?.title ?? 'Erro ao criar grupo.');
-        this.loading.set(false);
-      },
-    });
+    if (this.isEditing) {
+      this.groupService.update(this.editGroup!.id, {
+        name: this.name.trim(),
+        scoringConfig: { baseWin: this.baseWin, baseLoss: this.baseLoss, kdaWeight: this.kdaWeight },
+      }).subscribe({
+        next: (group) => { this.loading.set(false); this.created.emit(group); },
+        error: (err) => { this.error.set(err.error?.title ?? 'Erro ao editar grupo.'); this.loading.set(false); },
+      });
+    } else {
+      this.groupService.create({
+        name: this.name.trim(),
+        game: this.game,
+        scoringConfig: { baseWin: this.baseWin, baseLoss: this.baseLoss, kdaWeight: this.kdaWeight },
+      }).subscribe({
+        next: (group) => { this.loading.set(false); this.created.emit(group); },
+        error: (err) => { this.error.set(err.error?.title ?? 'Erro ao criar grupo.'); this.loading.set(false); },
+      });
+    }
   }
 }

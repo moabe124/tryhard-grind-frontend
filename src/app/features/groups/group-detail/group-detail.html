@@ -1,0 +1,230 @@
+<section class="px-8 py-10">
+
+  <!-- Header -->
+  @if (group()) {
+    <header class="mb-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="h-[2px] w-6 bg-primary inline-block"></span>
+            <span class="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">{{ group()!.game }}</span>
+            <span class="text-outline/40">·</span>
+            <span class="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase">{{ group()!.memberCount }} {{ group()!.memberCount === 1 ? 'membro' : 'membros' }}</span>
+          </div>
+          <h1 class="text-6xl md:text-7xl font-headline font-black text-on-surface tracking-tighter uppercase leading-none mb-4">{{ group()!.name }}</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            (click)="generateInvite()"
+            [disabled]="inviteLoading()"
+            class="flex items-center gap-2 px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all neon-glow-btn bg-primary text-on-primary hover:brightness-110 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed h-fit"
+          >
+            <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">link</span>
+            {{ inviteLoading() ? 'GERANDO...' : 'LINK DE CONVITE' }}
+          </button>
+          <button
+            (click)="openEdit()"
+            class="flex items-center gap-2 px-6 py-3 border border-primary rounded-lg text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 transition-all shadow-[0_0_20px_rgba(78,222,163,0.2)] h-fit"
+          >
+            <span class="material-symbols-outlined text-lg">edit</span>
+            EDITAR GRUPO
+          </button>
+        </div>
+      </div>
+
+      <!-- Fórmula de pontuação -->
+      <div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="flex items-center gap-3 text-sm">
+          <span class="text-[9px] uppercase tracking-[0.2em] text-outline font-bold">Fórmula</span>
+          <span class="text-primary font-black">+{{ group()!.scoringConfig.baseWin }}</span>
+          <span class="text-outline text-xs">vitória</span>
+          <span class="text-outline/40">·</span>
+          <span class="text-error font-black">-{{ group()!.scoringConfig.baseLoss }}</span>
+          <span class="text-outline text-xs">derrota</span>
+          <span class="text-outline/40">·</span>
+          <span class="text-on-surface font-bold">×{{ group()!.scoringConfig.kdaWeight }}</span>
+          <span class="text-outline text-xs">KDA</span>
+        </div>
+      </div>
+    </header>
+  }
+
+  <!-- Modal link de convite -->
+  @if (invite()) {
+    <app-invite-modal [invite]="invite()!" (closed)="closeInvite()" />
+  }
+
+  <!-- Pódio -->
+  @if (top3().length >= 1) {
+    <section class="flex justify-center gap-8 items-end mb-16 relative">
+
+      <!-- 2º Lugar -->
+      @if (top3().length >= 2) {
+        <div class="flex flex-col items-center group w-56">
+          <div class="relative mb-6">
+            <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-[#C0C0C0]">
+              <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+            </div>
+            <div class="w-32 h-32 rounded-xl border-2 overflow-hidden neon-glow-silver ring-4 ring-[#C0C0C0]/10 flex items-center justify-center bg-surface-container-high">
+              @if (get2nd()?.avatarUrl) {
+                <img [src]="get2nd()!.avatarUrl" class="w-full h-full object-cover" [alt]="get2nd()!.nick" />
+              } @else {
+                <span class="material-symbols-outlined text-outline text-4xl">person</span>
+              }
+            </div>
+            <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-lg podium-gradient-silver flex items-center justify-center text-white font-bold shadow-lg border border-white/20">2</div>
+          </div>
+          <div class="glass-effect p-6 w-full rounded-2xl text-center transform transition-all group-hover:-translate-y-2 border neon-glow-silver metallic-fill-silver">
+            <span class="text-[10px] uppercase tracking-widest text-[#C0C0C0] font-bold">2º Lugar</span>
+            <h3 class="text-xl font-bold mb-2 text-on-surface">{{ get2nd()!.nick }}</h3>
+            <div class="flex justify-center gap-4 text-sm font-bold text-[#C0C0C0]">
+              <span>{{ get2nd()!.totalPoints }} PTS</span>
+              <span class="text-on-surface-variant/30">|</span>
+              <span [class]="deltaColor(get2nd()!.deltaToday)">{{ deltaLabel(get2nd()!.deltaToday) }}</span>
+            </div>
+            <div class="mt-4 flex justify-center">
+              <span class="text-[10px] font-black uppercase tracking-[0.15em] px-5 py-2 rounded-full border"
+                [class]="tierClass(get2nd()!.tier)">
+                {{ tierLabel(get2nd()!.tier) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- 1º Lugar -->
+      <div class="flex flex-col items-center group z-10 scale-105 w-64">
+        <div class="relative mb-8">
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 text-[#D4AF37] animate-pulse">
+            <span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+          </div>
+          <div class="w-44 h-44 rounded-xl border-2 overflow-hidden ring-4 ring-[#D4AF37]/20 neon-glow-gold animate-glow-gold flex items-center justify-center bg-surface-container-high">
+            @if (get1st()?.avatarUrl) {
+              <img [src]="get1st()!.avatarUrl" class="w-full h-full object-cover" [alt]="get1st()!.nick" />
+            } @else {
+              <span class="material-symbols-outlined text-primary text-6xl">person</span>
+            }
+          </div>
+          <div class="absolute -bottom-4 -right-2 w-14 h-14 rounded-lg podium-gradient-gold flex items-center justify-center text-white text-xl font-black shadow-xl border border-white/30">1</div>
+        </div>
+        <div class="glass-effect p-8 w-full rounded-2xl text-center transform transition-all group-hover:-translate-y-2 border neon-glow-gold metallic-fill-gold">
+          <span class="text-[10px] uppercase tracking-widest text-[#D4AF37] font-bold">Líder do Grupo</span>
+          <h3 class="text-2xl font-headline font-bold mb-2 text-on-surface">{{ get1st()!.nick }}</h3>
+          <div class="flex justify-center gap-4 text-base font-bold text-[#D4AF37]">
+            <span>{{ get1st()!.totalPoints }} PTS</span>
+            <span class="text-on-surface-variant/30">|</span>
+            <span [class]="deltaColor(get1st()!.deltaToday)">{{ deltaLabel(get1st()!.deltaToday) }}</span>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <span class="text-[11px] font-black uppercase tracking-[0.2em] px-6 py-2.5 rounded-full border"
+              [class]="tierClass(get1st()!.tier)">
+              {{ tierLabel(get1st()!.tier) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3º Lugar -->
+      @if (top3().length >= 3) {
+        <div class="flex flex-col items-center group w-52">
+          <div class="relative mb-6">
+            <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-[#CD7F32]">
+              <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+            </div>
+            <div class="w-28 h-28 rounded-xl border-2 overflow-hidden neon-glow-bronze ring-4 ring-[#CD7F32]/10 flex items-center justify-center bg-surface-container-high">
+              @if (get3rd()?.avatarUrl) {
+                <img [src]="get3rd()!.avatarUrl" class="w-full h-full object-cover" [alt]="get3rd()!.nick" />
+              } @else {
+                <span class="material-symbols-outlined text-outline text-3xl">person</span>
+              }
+            </div>
+            <div class="absolute -bottom-2 -right-2 w-9 h-9 rounded-lg podium-gradient-bronze flex items-center justify-center text-white font-bold shadow-lg border border-white/20">3</div>
+          </div>
+          <div class="glass-effect p-6 w-full rounded-2xl text-center transform transition-all group-hover:-translate-y-2 border neon-glow-bronze metallic-fill-bronze">
+            <span class="text-[10px] uppercase tracking-widest text-[#CD7F32] font-bold">3º Lugar</span>
+            <h3 class="text-lg font-bold mb-2 text-on-surface">{{ get3rd()!.nick }}</h3>
+            <div class="flex justify-center gap-4 text-sm font-bold text-[#CD7F32]">
+              <span>{{ get3rd()!.totalPoints }} PTS</span>
+              <span class="text-on-surface-variant/30">|</span>
+              <span [class]="deltaColor(get3rd()!.deltaToday)">{{ deltaLabel(get3rd()!.deltaToday) }}</span>
+            </div>
+            <div class="mt-4 flex justify-center">
+              <span class="text-[10px] font-black uppercase tracking-[0.15em] px-5 py-2 rounded-full border"
+                [class]="tierClass(get3rd()!.tier)">
+                {{ tierLabel(get3rd()!.tier) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+
+    </section>
+  }
+
+  <!-- Ranking Table -->
+  <section class="mt-16">
+    <div class="mb-8">
+      <h2 class="text-xl font-headline font-bold uppercase tracking-tight text-on-surface">JOGADORES ATIVOS</h2>
+    </div>
+
+    <div class="overflow-hidden rounded-2xl bg-surface-container-lowest border border-white/5 shadow-2xl">
+      @if (loading()) {
+        <div class="py-16 flex justify-center items-center">
+          <span class="material-symbols-outlined text-primary animate-spin text-3xl">progress_activity</span>
+        </div>
+      } @else {
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-surface-container/50 text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant/70">
+              <th class="px-8 py-5 border-b border-white/5">POSIÇÃO</th>
+              <th class="px-8 py-5 border-b border-white/5">JOGADOR</th>
+              <th class="px-8 py-5 border-b border-white/5">TIER</th>
+              <th class="px-8 py-5 border-b border-white/5 text-right">PONTOS</th>
+              <th class="px-8 py-5 border-b border-white/5 text-right">HOJE</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            @for (member of allMembers(); track member.userId) {
+              <tr class="hover:bg-white/5 transition-colors group cursor-default">
+                <td class="px-8 py-6 font-headline font-bold text-on-surface-variant/40 group-hover:text-on-surface-variant">
+                  {{ member.position.toString().padStart(2, '0') }}
+                </td>
+                <td class="px-8 py-6">
+                  <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-highest overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors flex items-center justify-center">
+                      @if (member.avatarUrl) {
+                        <img [src]="member.avatarUrl" class="w-full h-full object-cover" [alt]="member.nick" />
+                      } @else {
+                        <span class="material-symbols-outlined text-outline text-lg">person</span>
+                      }
+                    </div>
+                    <span class="font-bold tracking-tight text-on-surface">{{ member.nick }}</span>
+                  </div>
+                </td>
+                <td class="px-8 py-6">
+                  <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase border" [class]="tierClass(member.tier)">
+                    {{ tierLabel(member.tier) }}
+                  </span>
+                </td>
+                <td class="px-8 py-6 text-right font-headline font-bold text-primary-fixed">{{ member.totalPoints }}</td>
+                <td class="px-8 py-6 text-right font-bold" [class]="deltaColor(member.deltaToday)">{{ deltaLabel(member.deltaToday) }}</td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="5" class="px-8 py-12 text-center text-outline text-sm">Nenhum membro encontrado.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+    <div class="mt-6 flex items-center justify-between">
+      <p class="text-[10px] uppercase tracking-widest text-on-surface-variant/50">
+        {{ group()?.memberCount ?? 0 }} {{ (group()?.memberCount ?? 0) === 1 ? 'membro' : 'membros' }} no grupo
+      </p>
+    </div>
+  </section>
+
+</section>

@@ -52,6 +52,11 @@ module.exports = {
         'on-tertiary-container': '#1f2994',
         'error-container': '#93000a',
         'primary-fixed': '#6ffbbe',
+        'tier-diamond': '#A080E0',
+        'tier-platinum': '#00FF9D',
+        'tier-gold': '#FFD700',
+        'tier-silver': '#E0E0E0',
+        'tier-bronze': '#FF8C42',
       },
       fontFamily: {
         'headline': ['Space Grotesk', 'sans-serif'],

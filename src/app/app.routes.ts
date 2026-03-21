@@ -18,8 +18,18 @@ export const routes: Routes = [
         path: 'home',
         loadChildren: () =>
           import('./features/home/home.routes').then((m) => m.homeRoutes),
-      }
+      },
+      {
+        path: 'groups',
+        loadChildren: () =>
+          import('./features/groups/groups.routes').then((m) => m.groupsRoutes),
+      },
     ],
+  },
+  {
+    path: 'join/:token',
+    loadChildren: () =>
+      import('./features/join/join.routes').then((m) => m.joinRoutes),
   },
   { path: '**', redirectTo: 'auth/login' },
 ];

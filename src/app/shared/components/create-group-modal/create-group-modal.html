@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <div class="px-8 py-6 border-b border-primary/10 flex justify-between items-center bg-surface">
-      <h2 class="text-xl font-black tracking-tight text-primary uppercase">Criar Novo Grupo</h2>
+      <h2 class="text-xl font-black tracking-tight text-primary uppercase">{{ isEditing ? 'Editar Grupo' : 'Criar Novo Grupo' }}</h2>
       <button (click)="close()" class="text-outline hover:text-on-surface transition-colors">
         <span class="material-symbols-outlined">close</span>
       </button>
@@ -146,7 +146,7 @@
           ? 'bg-primary text-on-primary hover:brightness-110 active:scale-[0.98]'
           : 'bg-primary/20 border border-primary/30 text-primary/50 cursor-not-allowed'"
       >
-        {{ loading() ? 'CRIANDO...' : 'CRIAR GRUPO' }}
+        {{ loading() ? (isEditing ? 'SALVANDO...' : 'CRIANDO...') : (isEditing ? 'SALVAR GRUPO' : 'CRIAR GRUPO') }}
       </button>
     </div>
 

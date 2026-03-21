@@ -1,0 +1,46 @@
+<div class="min-h-screen bg-surface flex items-center justify-center px-4">
+  <div class="w-full max-w-md text-center">
+
+    @if (loading()) {
+      <div class="flex flex-col items-center gap-6">
+        <span class="material-symbols-outlined text-primary text-5xl animate-spin">progress_activity</span>
+        <div>
+          <h1 class="text-2xl font-black uppercase tracking-tighter text-on-surface mb-2">Entrando no grupo...</h1>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-outline">Validando seu convite</p>
+        </div>
+      </div>
+    }
+
+    @if (!loading() && success()) {
+      <div class="flex flex-col items-center gap-6">
+        <div class="h-20 w-20 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_40px_rgba(78,222,163,0.2)]">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </div>
+        <div>
+          <h1 class="text-3xl font-black uppercase tracking-tighter text-on-surface mb-2">Bem-vindo!</h1>
+          <p class="text-primary font-bold uppercase tracking-[0.15em] text-sm mb-1">{{ success() }}</p>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-outline">Você entrou no grupo com sucesso. Redirecionando...</p>
+        </div>
+      </div>
+    }
+
+    @if (!loading() && error()) {
+      <div class="flex flex-col items-center gap-6">
+        <div class="h-20 w-20 rounded-2xl bg-error-container/20 border border-error/30 flex items-center justify-center">
+          <span class="material-symbols-outlined text-error text-4xl" style="font-variation-settings: 'FILL' 1;">cancel</span>
+        </div>
+        <div>
+          <h1 class="text-2xl font-black uppercase tracking-tighter text-on-surface mb-2">Convite inválido</h1>
+          <p class="text-[12px] text-outline mb-6">{{ error() }}</p>
+          <button
+            (click)="goHome()"
+            class="px-8 py-3 bg-primary text-on-primary rounded-lg text-[10px] font-bold uppercase tracking-[0.2em] hover:brightness-110 active:scale-[0.98] transition-all neon-glow-btn"
+          >
+            Ir para Home
+          </button>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

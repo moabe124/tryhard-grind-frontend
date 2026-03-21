@@ -16,6 +16,33 @@
   box-shadow: 0 0 30px rgba(78, 222, 163, 0.4);
 }
 
+/* Podium glows */
+.neon-glow-gold {
+  box-shadow: 0 0 80px -10px rgba(212, 175, 55, 0.45), 0 0 30px -5px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+.neon-glow-silver {
+  box-shadow: 0 0 80px -10px rgba(192, 192, 192, 0.4), 0 0 30px -5px rgba(192, 192, 192, 0.2), inset 0 0 20px rgba(192, 192, 192, 0.1);
+  border-color: rgba(192, 192, 192, 0.6);
+}
+.neon-glow-bronze {
+  box-shadow: 0 0 80px -10px rgba(205, 127, 50, 0.4), 0 0 30px -5px rgba(205, 127, 50, 0.2), inset 0 0 20px rgba(205, 127, 50, 0.1);
+  border-color: rgba(205, 127, 50, 0.6);
+}
+.podium-gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #b4941f 100%); }
+.podium-gradient-silver { background: linear-gradient(135deg, #C0C0C0 0%, #8a8a8a 100%); }
+.podium-gradient-bronze { background: linear-gradient(135deg, #CD7F32 0%, #a05d21 100%); }
+.metallic-fill-gold { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); }
+.metallic-fill-silver { background: linear-gradient(135deg, rgba(192, 192, 192, 0.15) 0%, rgba(192, 192, 192, 0.05) 100%); }
+.metallic-fill-bronze { background: linear-gradient(135deg, rgba(205, 127, 50, 0.15) 0%, rgba(205, 127, 50, 0.05) 100%); }
+.glass-effect { backdrop-filter: blur(16px); background: rgba(8, 18, 15, 0.7); border: 0.5px solid rgba(255, 255, 255, 0.05); }
+
+@keyframes pulse-glow-gold {
+  0%, 100% { box-shadow: 0 0 80px -10px rgba(212, 175, 55, 0.45), 0 0 30px -5px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 100px -5px rgba(212, 175, 55, 0.6), 0 0 40px 0px rgba(212, 175, 55, 0.35), inset 0 0 30px rgba(212, 175, 55, 0.2); }
+}
+.animate-glow-gold { animation: pulse-glow-gold 4s ease-in-out infinite; }
+
 .bg-grid-pattern {
   background-image: radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.05) 1px, transparent 0);
   background-size: 40px 40px;
