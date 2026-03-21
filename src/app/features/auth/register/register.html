@@ -126,7 +126,11 @@
       <footer class="mt-10 pt-8 border-t border-outline-variant text-center">
         <p class="text-[11px] text-outline uppercase tracking-wider">
           Já tem uma conta?
-          <a routerLink="/auth/login" class="text-primary font-bold hover:text-primary-fixed transition-colors ml-1">LOGIN</a>
+          <a
+            routerLink="/auth/login"
+            [queryParams]="route.snapshot.queryParams"
+            class="text-primary font-bold hover:text-primary-fixed transition-colors ml-1"
+          >LOGIN</a>
         </p>
       </footer>
     </div>

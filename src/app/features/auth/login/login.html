@@ -92,7 +92,11 @@
       <footer class="mt-10 pt-8 border-t border-outline-variant text-center">
         <p class="text-[11px] text-outline uppercase tracking-wider">
           Novo por aqui?
-          <a routerLink="/auth/register" class="text-primary font-bold hover:text-primary-fixed transition-colors ml-1">CRIAR PERFIL →</a>
+          <a
+            routerLink="/auth/register"
+            [queryParams]="route.snapshot.queryParams"
+            class="text-primary font-bold hover:text-primary-fixed transition-colors ml-1"
+          >CRIAR PERFIL →</a>
         </p>
       </footer>
     </div>

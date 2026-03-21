@@ -12,7 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  route = inject(ActivatedRoute);
 
   email = '';
   password = '';

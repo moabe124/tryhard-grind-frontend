@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class RegisterComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  route = inject(ActivatedRoute);
 
   nick = '';
   email = '';
@@ -41,7 +42,10 @@ export class RegisterComponent {
     this.auth
       .register({ nick: this.nick, email: this.email, password: this.password })
       .subscribe({
-        next: () => this.router.navigate(['/groups']),
+        next: () => {
+          const redirect = this.route.snapshot.queryParamMap.get('redirect');
+          this.router.navigateByUrl(redirect ?? '/home');
+        },
         error: (err) => {
           this.error.set(err.error?.title ?? 'Erro ao criar conta.');
           this.loading.set(false);
