@@ -1,0 +1,76 @@
+<section class="px-8 py-10">
+  <header class="mb-10">
+    <h1 class="text-5xl font-black tracking-tighter uppercase mb-1">MEUS GRUPOS</h1>
+    <p class="text-outline text-[10px] uppercase tracking-[0.2em]">SQUADS COMPETITIVOS ATIVOS</p>
+  </header>
+
+  <div class="flex flex-col gap-6">
+    <!-- Grupo placeholder — será substituído por @for quando tiver dados reais -->
+    <article class="bg-surface-container/40 backdrop-blur-xl border border-outline-variant rounded-xl p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+      <!-- Nome + jogo + última atividade -->
+      <div class="lg:col-span-3">
+        <h2 class="text-2xl font-bold text-on-surface mb-1">Elite Vanguards</h2>
+        <p class="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">League of Legends</p>
+        <div class="mt-4 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary/40 text-sm">schedule</span>
+          <p class="text-xs text-outline italic">KingFlash subiu para Platina — há 3h</p>
+        </div>
+      </div>
+
+      <!-- Pódio top 3 -->
+      <div class="lg:col-span-3 flex flex-col items-center">
+        <div class="flex items-end gap-3">
+          <!-- 2º -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="h-12 w-12 rounded-xl border-2 border-on-surface-variant/40 bg-surface-container-high flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-outline text-2xl">person</span>
+              <span class="absolute -top-2 -right-2 h-5 w-5 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow-lg">2</span>
+            </div>
+          </div>
+          <!-- 1º -->
+          <div class="flex flex-col items-center gap-1">
+            <span class="material-symbols-outlined text-yellow-500 text-lg" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            <div class="h-16 w-16 rounded-xl border-2 border-primary bg-surface-container-high flex items-center justify-center relative shadow-[0_0_20px_rgba(78,222,163,0.2)]">
+              <span class="material-symbols-outlined text-primary text-3xl">person</span>
+              <span class="absolute -top-2 -right-2 h-6 w-6 bg-gradient-to-br from-yellow-400 to-yellow-700 rounded-full text-xs flex items-center justify-center font-bold text-white shadow-lg">1</span>
+            </div>
+          </div>
+          <!-- 3º -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="h-12 w-12 rounded-xl border-2 border-amber-800/60 bg-surface-container-high flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-outline text-2xl">person</span>
+              <span class="absolute -top-2 -right-2 h-5 w-5 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow-lg">3</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center mt-3 text-[9px] uppercase tracking-widest text-outline">LÍDERES ATUAIS</p>
+      </div>
+
+      <!-- Posição + barra de progresso -->
+      <div class="lg:col-span-4 flex flex-col justify-center border-l border-r border-primary/10 px-8">
+        <div class="flex justify-between items-end mb-2">
+          <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface">
+            Você está em <span class="text-primary">4º</span> de 12
+          </span>
+          <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-primary">Diamante III</span>
+        </div>
+        <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+          <div class="h-full w-3/4 rounded-full bg-[#9d50bb] shadow-[0_0_10px_#9d50bb]"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span class="text-[9px] text-outline uppercase tracking-tighter">Diamante IV</span>
+          <span class="text-[9px] text-outline uppercase tracking-tighter">Mestre</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="lg:col-span-2 flex justify-end">
+        <button class="px-6 py-3 border border-primary/20 text-primary font-bold text-[10px] tracking-[0.2em] uppercase rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300">
+          VER RANKING
+        </button>
+      </div>
+
+    </article>
+  </div>
+</section>
