@@ -1,0 +1,154 @@
+<!-- Overlay -->
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/70 backdrop-blur-md"
+  (click)="close()"
+>
+  <!-- Modal (click stop propagation para não fechar ao clicar dentro) -->
+  <div
+    class="w-full max-w-lg bg-[#08120f] border border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.6)] rounded-lg overflow-hidden flex flex-col"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-primary/10 flex justify-between items-center bg-surface">
+      <h2 class="text-xl font-black tracking-tight text-primary uppercase">Criar Novo Grupo</h2>
+      <button (click)="close()" class="text-outline hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 space-y-8 overflow-y-auto max-h-[70vh]">
+
+      @if (error()) {
+        <p class="text-[11px] tracking-widest text-error bg-error-container/20 px-4 py-3 rounded-lg">
+          {{ error() }}
+        </p>
+      }
+
+      <!-- Nome + Jogo -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-outline">Nome do Grupo *</label>
+          <input
+            type="text"
+            [(ngModel)]="name"
+            placeholder="Ex: Os Tryhard"
+            class="w-full bg-surface-container-lowest border border-outline-variant focus:border-primary/50 focus:ring-1 focus:ring-primary/50 rounded-lg py-3 px-4 text-sm outline-none transition-all text-on-surface placeholder:text-outline"
+          />
+        </div>
+        <div class="space-y-2">
+          <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-outline">Jogo</label>
+          <div class="relative">
+            <select
+              [(ngModel)]="game"
+              class="w-full bg-surface-container-lowest border border-outline-variant focus:border-primary/50 focus:ring-1 focus:ring-primary/50 rounded-lg py-3 px-4 text-sm appearance-none outline-none text-on-surface"
+            >
+              @for (g of games; track g) {
+                <option [value]="g">{{ g }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+
+      <!-- Fórmula de pontuação -->
+      <div class="space-y-6">
+        <h3 class="text-[10px] uppercase tracking-[0.2em] font-black text-primary">Fórmula de Pontuação</h3>
+
+        <!-- Pontos por vitória -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.1em] font-bold text-on-surface">Pontos por vitória</p>
+              <p class="text-[9px] text-outline uppercase tracking-wider">Base de pontos ganhos em cada vitória</p>
+            </div>
+            <span class="text-primary font-black text-sm">{{ baseWin }}</span>
+          </div>
+          <input
+            type="range" min="0" max="100"
+            [(ngModel)]="baseWin"
+            class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary"
+          />
+        </div>
+
+        <!-- Pontos por derrota -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.1em] font-bold text-on-surface">Pontos por derrota</p>
+              <p class="text-[9px] text-outline uppercase tracking-wider">Base de pontos perdidos em cada derrota</p>
+            </div>
+            <span class="text-primary font-black text-sm">{{ baseLoss }}</span>
+          </div>
+          <input
+            type="range" min="0" max="100"
+            [(ngModel)]="baseLoss"
+            class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary"
+          />
+        </div>
+
+        <!-- Peso do KDA -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.1em] font-bold text-on-surface">Peso do KDA</p>
+              <p class="text-[9px] text-outline uppercase tracking-wider">Multiplicador aplicado ao KDA da partida</p>
+            </div>
+            <span class="text-primary font-black text-sm">{{ kdaWeight }}</span>
+          </div>
+          <input
+            type="range" min="0" max="20"
+            [(ngModel)]="kdaWeight"
+            class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary"
+          />
+        </div>
+      </div>
+
+      <!-- Preview em tempo real -->
+      <div class="bg-primary/5 border border-primary/10 p-6 rounded-xl space-y-3 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+        <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-primary/60 mb-1">PREVISÃO EM TEMPO REAL</p>
+        <div class="flex justify-between items-center text-sm">
+          <span class="font-medium text-on-surface flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            Vitória · KDA 4.0
+          </span>
+          <span class="text-primary font-black">→ +{{ winPreview }} pts</span>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="font-medium text-on-surface flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-error"></span>
+            Derrota
+          </span>
+          <span class="text-error font-black">→ -{{ baseLoss }} pts</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-8 py-5 bg-surface border-t border-primary/10 flex flex-col md:flex-row gap-3 justify-end">
+      <button
+        (click)="close()"
+        class="px-8 py-3 rounded-lg border border-outline-variant text-[10px] uppercase tracking-[0.2em] font-bold text-outline hover:bg-white/5 hover:text-on-surface transition-all"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="submit()"
+        [disabled]="!isValid || loading()"
+        class="px-8 py-3 rounded-lg text-[10px] uppercase tracking-[0.2em] font-bold transition-all neon-glow-btn"
+        [class]="isValid && !loading()
+          ? 'bg-primary text-on-primary hover:brightness-110 active:scale-[0.98]'
+          : 'bg-primary/20 border border-primary/30 text-primary/50 cursor-not-allowed'"
+      >
+        {{ loading() ? 'CRIANDO...' : 'CRIAR GRUPO' }}
+      </button>
+    </div>
+
+  </div>
+</div>

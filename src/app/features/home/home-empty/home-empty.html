@@ -30,7 +30,7 @@
 
     <!-- Ações -->
     <div class="flex flex-col gap-4 w-full max-w-xs">
-      <button class="bg-primary text-on-primary font-bold py-4 px-8 rounded-lg text-[10px] tracking-[0.2em] uppercase hover:brightness-110 active:scale-[0.98] transition-all neon-glow-btn flex items-center justify-center gap-3">
+      <button (click)="openModal.emit()" class="bg-primary text-on-primary font-bold py-4 px-8 rounded-lg text-[10px] tracking-[0.2em] uppercase hover:brightness-110 active:scale-[0.98] transition-all neon-glow-btn flex items-center justify-center gap-3">
         <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">add_circle</span>
         Criar grupo
       </button>

@@ -1,16 +1,16 @@
-<!-- TODO: remover bloco de debug quando cadastro de grupos estiver implementado -->
-<div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:left-[calc(50%+8rem)]">
-  <button
-    (click)="toggleDebug()"
-    class="flex items-center gap-2 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-full text-[10px] uppercase tracking-widest text-outline hover:text-on-surface transition-colors shadow-lg"
-  >
-    <span class="material-symbols-outlined text-sm">toggle_on</span>
-    DEBUG: {{ hasGroups() ? 'com grupos' : 'sem grupos' }}
-  </button>
-</div>
-
-@if (hasGroups()) {
-  <app-home-with />
+@if (loading()) {
+  <div class="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+    <span class="material-symbols-outlined text-primary text-4xl animate-spin">progress_activity</span>
+  </div>
+} @else if (groups().length > 0) {
+  <app-home-with [groups]="groups()" (openModal)="showModal.set(true)" />
 } @else {
-  <app-home-empty />
+  <app-home-empty (openModal)="showModal.set(true)" />
+}
+
+@if (showModal()) {
+  <app-create-group-modal
+    (created)="onGroupCreated($event)"
+    (closed)="showModal.set(false)"
+  />
 }
