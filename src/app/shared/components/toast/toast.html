@@ -1,0 +1,20 @@
+<div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div
+      class="pointer-events-auto flex items-start gap-4 px-5 py-4 rounded-xl border shadow-[0_0_40px_rgba(0,0,0,0.5)] backdrop-blur-xl max-w-sm w-full animate-in"
+      [class]="colorClass(toast.type)"
+    >
+      <span
+        class="material-symbols-outlined text-xl shrink-0 mt-0.5"
+        style="font-variation-settings: 'FILL' 1;"
+      >{{ icon(toast.type) }}</span>
+      <p class="text-[11px] uppercase tracking-[0.15em] font-bold flex-1 leading-relaxed">{{ toast.message }}</p>
+      <button
+        (click)="toastService.dismiss(toast.id)"
+        class="shrink-0 opacity-50 hover:opacity-100 transition-opacity"
+      >
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+  }
+</div>
